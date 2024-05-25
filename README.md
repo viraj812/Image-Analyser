@@ -1,14 +1,17 @@
 # Image Analyser
 ## using Python
 
-### First clone or download the entire repo
+### Step-1: clone or download the entire repo.
+```
+git clone https://github.com/viraj812/Image-Analyser.git
+```
 
-### Install all dependencies using
+### Step-2: Install all dependencies using
 ```
 pip install -r requirements.txt
 ```
 
-### Run the main.py file
+### Step-3: Run the main.py file
 ```
 python3 main.py
 ```

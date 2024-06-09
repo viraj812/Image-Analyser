@@ -288,23 +288,53 @@ def createHTML(labels, text_content, count):
 
     soup = BeautifulSoup(html_template, 'html.parser')
 
+    img_tag = soup.new_tag("img")
+    img_tag['src'] = "./final_analyzed_image.jpg"
+    soup.body.append(img_tag)
+    
+    line_break = soup.new_tag("br")
+    soup.body.append(line_break)
+
     text_label = soup.new_tag("h3")
     text_label.string = "Analyzed following labels from the image: "
     soup.body.append(text_label)
 
+
+    tag = soup.new_tag("p")
+    tag.string = ""
     for label in labels:
-        tag = soup.new_tag("p")
-        tag.string = label.to_dict()['name']
-        soup.body.append(tag)
+        tag.string += str(label.to_dict()['name']) + ", "
+    
+    soup.body.append(tag)
+
+    line_break = soup.new_tag("br")
+    soup.body.append(line_break)
+    soup.body.append(line_break)
 
     text_label = soup.new_tag("h3")
     text_label.string = "Text Content Extracted from the image: "
     soup.body.append(text_label)
 
+    tag = soup.new_tag("p")
+    tag.string = ""
+
+    text_content = list(map(lambda x: str(x).replace("\n", ""), text_content))
+    
+    print(text_content)
+
     for text in text_content:
-        tag = soup.new_tag("p")
-        tag.string = text
-        soup.body.append(tag)
+        tag.string += '"' + text + '" ,  '
+    
+    soup.body.append(tag)
+
+    line_break = soup.new_tag("br")
+    soup.body.append(line_break)
+    soup.body.append(line_break)
+
+    text_label = soup.new_tag("h3")
+    text_label.string = "Segmented Visual Elements: "
+    soup.body.append(text_label)
+
 
     for i in range(count):
         img_tag = soup.new_tag("img")

@@ -313,7 +313,7 @@ def createHTML(labels, text_content, count):
 
     html_content = soup.contents
     
-    with open('index.html', 'w') as html_file:
+    with open('analysed.html', 'w') as html_file:
         for item in html_content:
             html_file.write(str(item))
 

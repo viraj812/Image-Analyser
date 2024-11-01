@@ -1,7 +1,11 @@
 from flask import Flask, render_template, request, send_file
 from main import analyse_image
+from waitress import serve
 
 app = Flask('Image Analyser')
+
+app.config['ENV'] = 'production'
+app.config['DEBUG'] = False
 
 @app.route("/")
 def index():
@@ -22,4 +26,4 @@ def getImage():
 def handleFile(filename):
     return send_file('./static/images/' + filename, mimetype='image/jpeg')
     
-app.run(debug=True)
+serve(app, port=8080)

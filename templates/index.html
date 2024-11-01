@@ -1,15 +1,32 @@
 <html>
 
 <head>
-
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
 </head>
 
 <body>
-    <h2>Image Analyser</h2><br />
-    <form action="/imgfile" method="post" enctype="multipart/form-data">
-        <input type="file" name="imgfile" id="imgfile">
-        <input type="submit" value="Analyze"/>
-    </form>
+    <h2>Image Analyser</h2>
+    
+    <br />
+
+    <div class="form-div">
+        <form action="/imgfile" method="post" enctype="multipart/form-data">
+            Select an Image to analyze <br>
+            <label for="imgfile" id="filebtn">Upload Image</label>
+            <input type="file" name="imgfile" id="imgfile" onchange="handleChange()"> <br>
+            <input type="submit" value="Analyze" id="btn" disabled/>
+        </form>
+    </div>
+
+    <script>
+        function handleChange() {
+            var img = document.getElementById("filebtn");
+            img.style.backgroundColor = "green";
+            img.textContent = "Uploaded Successfully";
+
+            document.getElementById('btn').disabled = false;
+        }
+    </script>
 </body>
 
 </html>

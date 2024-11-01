@@ -166,7 +166,7 @@ def show_bounding_boxes(image_bytes, box_sets, colors):
             draw.rectangle([left, top, right, bottom], outline=color, width=3)
     
     image = image.convert('RGB')
-    image.save('analyzed_image.jpg')
+    image.save('./static/images/analyzed_image.jpg')
 
     return image
 
@@ -188,9 +188,9 @@ def show_polygons(image_bytes, polygons, color):
             ],
             outline=color,
         )
-    image.show()
+    # image.show()
     image = image.convert('RGB')
-    image.save('final_analyzed_image.jpg')
+    image.save('./static/images/final_analyzed_image.jpg')
 
     return image
 
@@ -231,7 +231,7 @@ def extract_text(analyzer):
 
     text_content = []
 
-    with open("extracted_text.txt", "w+", encoding='utf-8') as f:
+    with open("./static/images/extracted_text.txt", "w+", encoding='utf-8') as f:
         for text in texts:
             content = text.to_dict()['text']
             text_content.append(content)
@@ -268,9 +268,8 @@ def isolate_features(image_bytes, box_sets):
     count = 0
     for i in im:
         i = i.convert('RGB')
-        i.save(f'element{count}.jpg')
+        i.save(f'./static/images/element{count}.jpg')
         count += 1
-        i.show()
     
     return count
 
@@ -288,8 +287,14 @@ def createHTML(labels, text_content, count):
 
     soup = BeautifulSoup(html_template, 'html.parser')
 
+    css_tag = soup.new_tag("link")
+    css_tag['href'] = "{{ url_for('static', filename='css/analysed.css') }}"
+    css_tag['type'] = "text/css"
+    css_tag['rel'] = 'stylesheet'
+    soup.head.append(css_tag)
+
     img_tag = soup.new_tag("img")
-    img_tag['src'] = "./final_analyzed_image.jpg"
+    img_tag['src'] = "./static/images/final_analyzed_image.jpg"
     soup.body.append(img_tag)
     
     line_break = soup.new_tag("br")
@@ -335,15 +340,18 @@ def createHTML(labels, text_content, count):
     text_label.string = "Segmented Visual Elements: "
     soup.body.append(text_label)
 
-
-    for i in range(count):
-        img_tag = soup.new_tag("img")
-        img_tag['src'] = f'./element{i}.jpg'
-        soup.body.append(img_tag)
+    if (count > 0):
+        for i in range(count):
+            img_tag = soup.new_tag("img")
+            img_tag['src'] = f'./static/images/element{i}.jpg'
+            soup.body.append(img_tag)
+    else:
+        txt = soup.new_string("No Visual Elements Detected.")
+        soup.body.append(txt)
 
     html_content = soup.contents
     
-    with open('analysed.html', 'w') as html_file:
+    with open('templates/analysed.html', 'w', encoding='utf-8') as html_file:
         for item in html_content:
             html_file.write(str(item))
 

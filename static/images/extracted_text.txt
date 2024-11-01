@@ -1,0 +1,83 @@
+Company's Budget Allocation
+Spent so far: £960
+Remaining: 1040
+Budget: £2000 2000
+Allocation
+Delete
+Department
+Allocated Budget
+Increase by 10
+Marketing
+£50
+x
++
+Finance
+£300
+x
++
+Sales
+£70
+x
++
+Human Resource
+£40
+x
++
+IT
+£500
+x
++
+Change allocation
+Department
+Choose...
+Allocation
+Add
+Save
+Company's
+Budget
+Allocation
+Spent
+so
+far:
+£960
+Remaining:
+1040
+Budget:
+£2000
+2000
+Allocation
+Delete
+Department
+Allocated
+Budget
+Increase
+by
+10
+Marketing
+£50
+x
++
+Finance
+£300
+x
++
+Sales
+£70
+x
++
+Human
+Resource
+£40
+x
++
+IT
+£500
+x
++
+Change
+allocation
+Department
+Choose...
+Allocation
+Add
+Save

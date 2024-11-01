@@ -5,7 +5,7 @@ This is the main python file that achieves the core functionalities which are Im
 import boto3
 from botocore.config import Config
 from image_analysis import ImageAnalysis, analyze_image, isolate_features, extract_text, createHTML
-
+import shutil
 
 my_config = Config(
     region_name = 'ap-south-1',
@@ -25,6 +25,12 @@ rekognition_client = boto3.client(
 )
 
 def analyse_image(IMG):
+
+    try:
+        shutil.rmtree("./static/images")
+        shutil.os.mkdir("./static/images")
+    except Exception:
+        pass
     # creating analyzer object of the ImageAnalysis Class
     analyzer = ImageAnalysis.from_file(
         IMG, rekognition_client
@@ -37,7 +43,7 @@ def analyse_image(IMG):
     feauture_count = isolate_features(analyzer.image["Bytes"], box_sets)
 
     analyzer = ImageAnalysis.from_file(
-        "analyzed_image.jpg", rekognition_client
+        "./static/images/analyzed_image.jpg", rekognition_client
     )
 
     # outputs final image as final_analyzed_image.jpg

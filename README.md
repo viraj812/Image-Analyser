@@ -11,9 +11,9 @@ git clone https://github.com/viraj812/Image-Analyser.git
 pip install -r requirements.txt
 ```
 
-### Step-3: Run the main.py file
+### Step-3: Run the app.py file
 ```
-python3 main.py
+python3 app.py
 ```
 
 ### For default image (added in repo), type "test.png" in the input of the program.

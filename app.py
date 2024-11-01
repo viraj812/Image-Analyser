@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, send_file
 from main import analyse_image
 from waitress import serve
+import os
 
 app = Flask('Image Analyser')
 
@@ -24,6 +25,10 @@ def getImage():
 
 @app.route("/<filename>")
 def handleFile(filename):
-    return send_file('./static/images/' + filename, mimetype='image/jpeg')
+    flag = os.path.exists('./static/images/' + filename)
+    if(flag):
+        return send_file('static/images/' + filename, mimetype='image/jpeg')
+    else:
+        return "Resource Not Found", 404
     
 serve(app, port=8080)

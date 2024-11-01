@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from main.py import analyse_image
+from main import analyse_image
 
 app = Flask('Image Analyser')
 
@@ -7,8 +7,11 @@ app = Flask('Image Analyser')
 def index():
     return render_template('index.html')
 
-@app.route("/imgfile")
+@app.route("/imgfile", methods=['GET', 'POST'])
 def getImage():
-    img = request.form.imgfile
-    analyse_image(img)
+    img = request.files.get('imgfile')
+    img.save("./imgfile.jpg")
+    analyse_image("./imgfile.jpg")
+    return render_template("analysed.html")
     
+app.run(debug=True)

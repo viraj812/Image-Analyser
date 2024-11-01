@@ -24,26 +24,24 @@ rekognition_client = boto3.client(
     aws_secret_access_key="DaucgsE0r3MaKJ/YYIN45BnwOaKpFubESExVwBUL"
 )
 
-# Main image file path (to test enter test.png)
-IMG = input("Enter image file path: ")
+def analyse_image(IMG):
+    # creating analyzer object of the ImageAnalysis Class
+    analyzer = ImageAnalysis.from_file(
+        IMG, rekognition_client
+    )
 
-# creating analyzer object of the ImageAnalysis Class
-analyzer = ImageAnalysis.from_file(
-    IMG, rekognition_client
-)
+    # analyze labels identified in the image.
+    box_sets, labels = analyze_image(analyzer)
 
-# analyze labels identified in the image.
-box_sets, labels = analyze_image(analyzer)
+    # isolates image elements into seperate images
+    feauture_count = isolate_features(analyzer.image["Bytes"], box_sets)
 
-# isolates image elements into seperate images
-feauture_count = isolate_features(analyzer.image["Bytes"], box_sets)
+    analyzer = ImageAnalysis.from_file(
+        "analyzed_image.jpg", rekognition_client
+    )
 
-analyzer = ImageAnalysis.from_file(
-    "analyzed_image.jpg", rekognition_client
-)
+    # outputs final image as final_analyzed_image.jpg
+    text_content = extract_text(analyzer)
 
-# outputs final image as final_analyzed_image.jpg
-text_content = extract_text(analyzer)
-
-# creates a basic html structure with identified labels, extracted text content, isolated visual elements 
-createHTML(labels, text_content, feauture_count)
+    # creates a basic html structure with identified labels, extracted text content, isolated visual elements 
+    createHTML(labels, text_content, feauture_count)

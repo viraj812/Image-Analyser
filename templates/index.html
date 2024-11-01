@@ -6,8 +6,9 @@
 
 <body>
     <h2>Image Analyser</h2><br />
-    <form action="/imgfile" method="post">
+    <form action="/imgfile" method="post" enctype="multipart/form-data">
         <input type="file" name="imgfile" id="imgfile">
+        <input type="submit" value="Analyze"/>
     </form>
 </body>
 

@@ -11,11 +11,11 @@ app.config['DEBUG'] = False
 def index():
     return render_template('index.html')
 
-@app.route("/analysed")
+@app.route("/test")
 def analysed():
     return render_template('analysed.html')
 
-@app.route("/imgfile", methods=['GET', 'POST'])
+@app.route("/analysed", methods=['GET', 'POST'])
 def getImage():
     img = request.files.get('imgfile')
     img.save("./imgfile.jpg")

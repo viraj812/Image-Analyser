@@ -16,4 +16,5 @@ pip install -r requirements.txt
 python3 app.py
 ```
 
-### For default image (added in repo), type "test.png" in the input of the program.
+### open localhost:5000 
+### upload an image and click analyze you'll see the analysed image, extracted text and identifyed labels in the image.
